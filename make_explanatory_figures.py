@@ -74,21 +74,24 @@ def opening():
         ('Add one comparison', cycle+[(0, 4)], circle, Fraction(21, 5), r'$21/5=4.20$'),
         ('Redesign at the same budget', th, theta_positions((3, 3, 3)),
          Fraction(7, 2), r'$7/2=3.50$')]
-    fig, axes = plt.subplots(1, 3, figsize=(7.4, 2.55))
+    fig, axes = plt.subplots(1, 3, figsize=(7.4, 3.0))
     for ax, (title, edges, pos, value, label) in zip(axes, designs):
         ix, pair = witness(n, edges, value)
         graph(ax, edges, pos, ix, pair)
         ax.set_xlim(-1.45, 1.45); ax.set_ylim(-1.2, 1.3)
         ax.set_title(title+'\n'+str(len(edges))+' measurements', fontsize=9.3, pad=7)
-        ax.text(.5, -.06, label, transform=ax.transAxes, ha='center', fontsize=11)
-    fig.subplots_adjust(wspace=.25, bottom=.24)
+        ax.set_ylim(-1.35, 1.35)
+    fig.subplots_adjust(wspace=.25, bottom=.30, top=.80)
+    for ax, label in zip(axes, [d[-1] for d in designs]):
+        box = ax.get_position()
+        fig.text((box.x0+box.x1)/2, .13, label, ha='center', fontsize=11)
     fig.text(.5, .01, r'Largest pairwise variance after one loss, divided by $\sigma^2$',
              ha='center', fontsize=9)
     save(fig, 'opening_designs')
 
 
 def tied_designs():
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.7))
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.0))
     for ax, lengths, title in zip(axes, [(3, 3, 4), (2, 4, 4)],
             ['Balanced branches', 'A second, unbalanced optimum']):
         n, edges = theta(*lengths)
@@ -124,7 +127,7 @@ def endpoint_loss():
         graph(ax, edges, pos, cut, pair, labels, size=145)
         ax.text(-.85, 0, r'$H$', fontsize=14, color='#687C86', ha='center')
         ax.set_title(title+'\n'+sub, fontsize=9.5, pad=7)
-        ax.text(.5, -.07, r'$D(G-e)='+str(expected)+r'$', transform=ax.transAxes,
+        ax.text(.5, -.07, r'$\mathrm{diam}_R(G-e)='+str(expected)+r'$', transform=ax.transAxes,
                 ha='center', fontsize=10.5)
         ax.set_xlim(-2, 2.35); ax.set_ylim(-1.6, 1.7)
     fig.subplots_adjust(wspace=.17, bottom=.12)

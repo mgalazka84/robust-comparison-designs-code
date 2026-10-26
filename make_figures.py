@@ -75,9 +75,9 @@ for panel,ax in enumerate(axs):
         ax.text(*pos[i],str(i+1),ha='center',va='center',fontsize=7.5,zorder=3)
     ax.set_aspect('equal');ax.axis('off');ax.set_xlim(-1.45,1.45);ax.set_ylim(-1.2,1.45)
     ax.set_title('10 objects, 12 comparisons' if panel==0 else 'Remove one whole path: H',fontsize=10)
-    ax.text(.5,-.08,r'$\Phi_1(G_2)=3$' if panel==0 else r'$D(H)=R_H(1,2)=2$',
+    ax.text(.5,-.22,r'$\Phi_1(G_2)=3$' if panel==0 else r'$\mathrm{diam}_R(H)=R_H(1,2)=2$',
             transform=ax.transAxes,ha='center',fontsize=11)
-fig.subplots_adjust(bottom=.14,wspace=.3)
+fig.subplots_adjust(bottom=.26,wspace=.3)
 fig.savefig(OUT/'k4_subdivision.pdf');fig.savefig(OUT/'k4_subdivision.png',dpi=180)
 plt.close(fig)
 print('Created six figure files.')

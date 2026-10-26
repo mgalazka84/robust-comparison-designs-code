@@ -25,3 +25,4 @@ jobs:
       - run: python verify.py
       - run: python statistical_study.py --verify --reps 5000
       - run: python make_explanatory_figures.py
+      - run: python revision_study.py --verify

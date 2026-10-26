@@ -13,17 +13,17 @@ lines = [r'\begin{table}[ht]', r'\centering',
          r'\caption{Exact global optima for $m=n+2$. Lengths follow the ordered',
          r'core edges in Table~\ref{tab:cores}. These are rational exhaustive',
          r'search results; Theorem~\ref{thm:k4} also proves the indicated',
-         r'uniform $K_4$ cases analytically.}\label{tab:exactcores}',
-         r'\begin{tabular}{rrll}', r'\toprule',
-         r'$n$ & Minimum $\Phi_1$ & Optimal core & Optimal path lengths\\',
+         r'uniform $K_4$ cases analytically. Ties count nonisomorphic optima.}\label{tab:exactcores}',
+         r'\begin{tabular}{rrrclr}', r'\toprule',
+         r'$n$ & Bound $(n-1)/3$ & Minimum $\Phi_1$ & Core & Path lengths & Ties\\',
          r'\midrule']
 for row in rows:
-    assert len(row['optimizers']) == 1
     w = row['optimizers'][0]
     value = Fraction(row['minimum'])
     f = str(value.numerator) if value.denominator == 1 else f'{value.numerator}/{value.denominator}'
     lengths = ','.join(map(str, w['lengths']))
-    lines.append(f"{row['n']} & ${f}$ & ${names[w['core']]}$ & $({lengths})$" + r'\\')
+    bound = Fraction(row['n'] - 1, 3)
+    lines.append(f"{row['n']} & ${bound}$ & ${f}$ & ${names[w['core']]}$ & $({lengths})$ & {len(row['optimizers'])}" + r'\\')
 lines += [r'\bottomrule', r'\end{tabular}', r'\end{table}', '']
 (ROOT / 'tables').mkdir(exist_ok=True)
 (ROOT / 'tables/core_results.tex').write_text('\n'.join(lines))
